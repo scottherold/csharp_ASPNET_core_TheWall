@@ -1,0 +1,95 @@
+@model MessageBundle
+<!-- Insert Model Here -->
+<div class="row justify-content-center">
+    <div class="col-lg-10 rounded justify-content-center m-4 bg-white">
+        <div class="row justify-content-center m-3">
+            <h1>Welcome to the Wall!</h1>
+        </div>
+        <form asp-action="Create" asp-controller="Messages" method="POST">
+            <div class="form-row justify-content-left m-3">
+                <label asp-for="message.MessagePost"><h3>Post a message:</h3></label>
+                <div class="col-12 justify-content-center m-2">
+                    <textarea input asp-for="message.MessagePost" class="w-100" rows="4"></textarea>
+                    <p><span asp-validation-for="message.MessagePost" class="text-danger"></span></p>
+                </div>
+                <div class="col-12 text-right m-2">
+                    <button type="submit" class="btn btn-success">Post</button>
+                </div>
+            </div>
+        </form>
+        @if(Model.messageList == null)
+        {
+        
+        }
+        else
+        {
+            @foreach(var message in Model.messageList)
+            {
+                <div class="row justify-content-start m-3">
+                    <h5>@message.Creator.FirstName @message.Creator.LastName Posted On @message.CreatedAt.ToString("MMMM dd, yyyy")</h5>
+                </div>
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-11">
+                        <div class="row justify-content-end mx-3 mb-3">
+                            <div class="col-md-12 bg-light border rounded border-dark p-2">
+                                <p>
+                                    @message.MessagePost
+                                </p>
+                            </div>
+                            @if(@message.Creator.AccountId == ViewBag.AccountId)
+                            {
+                                @if(@message.Deleteable == true)
+                                {
+                                    <form asp-action="Destroy" asp-controller="Messages" asp-route-messageId="@message.MessageId" method="POST">
+                                        <button type="submit" class="btn btn-danger my-3">Delete</button>
+                                    </form>
+                                }
+                            }
+                        </div>
+                        @if(message.Comments == null)
+                        {
+
+                        }
+                        else
+                        {
+                            @foreach(var comment in message.Comments)
+                            {
+                                <div class="row justify-content-end m-3">
+                                    <h6>@comment.Creator.FirstName @comment.Creator.LastName Commented on @comment.CreatedAt.ToString("MMMM dd, yyyy")</h6>
+                                    <div class="col-md-10 bg-light border rounded border-dark p-2">
+                                        <p>
+                                            @comment.CommentPost
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end m-3">
+                                        @if(@comment.Creator.AccountId == ViewBag.AccountId)
+                                        {
+                                            <form asp-action="Destroy" asp-controller="Comments" asp-route-commentId="@comment.CommentId" method="POST">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        }
+                                </div>
+                            }
+                        }
+                        <form asp-action="Create" asp-controller="Comments" method="POST">
+                            <input type="hidden" asp-for="comment.MessageId" value="@message.MessageId">
+                            <div class="form-row justify-content-end my-3 mx-3">
+                                <div class="col-10 text-left">
+                                    <label asp-for="comment.CommentPost"><h6>Post a Comment:</h6></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea input asp-for="comment.CommentPost" class="w-100" rows="3"></textarea>
+                                    <p><span asp-validation-for="comment.CommentPost" class="text-danger bg-light"></span></p>
+                                </div>
+                                <div class="col-md-10 text-right">
+                                    <button type="submit" class="btn btn-success">Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

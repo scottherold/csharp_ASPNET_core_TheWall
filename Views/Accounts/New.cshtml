@@ -1,0 +1,37 @@
+@model Account
+<!-- Insert Model Here -->
+<div class="row justify-content-center">
+    <div class="col-lg-10 rounded justify-content-center m-4 bg-white">
+        <div class="row justify-content-center m-3">
+            <h1 class="m-3">Please Register Below!</h1>
+        </div>
+        <form asp-action="Create" asp-controller="Accounts" method="POST">
+            <div class="form-row justify-content-center m-3">
+                <div class="col-md-3 m-3 text-left">
+                    <label asp-for="FirstName"><h5>First Name</h5></label>
+                    <input asp-for="FirstName" class="w-100">
+                    <p><span asp-validation-for="FirstName" class="text-danger"></span></p>
+                    <label asp-for="LastName"><h5 class="mt-2">Last Name</h5></label>
+                    <input asp-for="LastName" class="w-100">
+                    <p><span asp-validation-for="LastName" class="text-danger"></span></p>
+                    <label asp-for="Email"><h5 class="mt-2">Email</h5></label>
+                    <input asp-for="Email" type="email" class="w-100">
+                    <p><span asp-validation-for="Email" class="text-danger"></span></p>
+                    <label asp-for="Birthday"><h5 class="mt-2">Birthday</h5></label>
+                    <input type="date" class="w-100" asp-for="Birthday">
+                    <p><span asp-validation-for="Birthday" class="text-danger"></span></p>
+                </div>
+                <div class="col-md-3 m-3 text-left">
+                    <label asp-for="Password"><h5>Password</h5></label>
+                    <input asp-for="Password" type="password" class="w-100">
+                    <p><span asp-validation-for="Password" class="text-danger"></span></p>
+                    <label asp-for="Confirm"><h5 class="mt-2">Password Confirm</h5></label>
+                    <input asp-for="Confirm" type="password" class="w-100">
+                    <p><span asp-validation-for="Confirm" class="text-danger"></span></p>
+                </div>
+            </div>
+            <div class="form-row justify-content-center m-3">
+                <button type="submit" class="btn btn-success mt-2">Register</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+@model Account
+<!-- Insert Model Here -->
+<div class="row justify-content-center">
+    <div class="col-lg-10 rounded justify-content-center m-4 bg-white">
+        <div class="row justify-content-center m-3">
+            <h1>Please login below!</h1>
+        </div>
+        <form asp-action="Login" asp-controller="Accounts" method="POST">
+            <div class="form-row justify-content-center m-3">
+                <div class="col-md-3 m-3 text-left">
+                    <label asp-for="Email"><h5>Email</h5></label>
+                    <input type="email" class="w-100" asp-for="Email">
+                    <p><span asp-validation-for="Email" class="text-danger"></span></p>
+                    <label asp-for="Password"><h5 class="mt-2">Password</h5></label>
+                    <input type="password" class="w-100" asp-for="Password">
+                    <p><span asp-validation-for="Password" class="text-danger"></span></p>
+                </div>
+            </div>
+            <div class="form-row justify-content-center m-3">
+                <button type="submit" class="btn btn-primary my-2 mr-3">Login</button>
+                <a asp-action="New" asp-controller="Accounts" class="btn btn-success my-2 ml-3 text-white">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
